@@ -51,4 +51,7 @@ export function checkAuthLoader() {
   if (!token) {
     return redirect('/auth');
   }
+
+  // 如果有令牌，则返回当前页面
+  return window.location.pathname;
 }
