@@ -27,7 +27,7 @@ function AuthForm() {
     <>
       <Form method="post" className={classes.form}>
         {/* 根据表单模式显示标题 */}
-        <h1>{isLogin ? 'Log in' : 'Create a new user'}</h1>
+        <h1>{isLogin ? 'Sign In' : 'Sign up'}</h1>
         {/* 显示表单提交后的错误信息 */}
         {data && data.errors && (
           <ul>
@@ -49,11 +49,11 @@ function AuthForm() {
         <div className={classes.actions}>
           {/* 切换登录和注册模式的链接 */}
           <Link to={`?mode=${isLogin ? 'signup' : 'login'}`}>
-            {isLogin ? 'Create new user' : 'Login'}
+            {isLogin ? 'Sign up' : 'Sign In'}
           </Link>
           {/* 提交按钮 */}
           <button disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Save'}
+            {isSubmitting ? 'Submitting...' : (isLogin ? 'Log in' : 'Register')}
           </button>
         </div>
       </Form>
