@@ -1,6 +1,5 @@
 // 引入必要的React Router DOM组件和函数
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
 // 引入页面组件和相关的loader和action
 import EditEventPage from './pages/EditEvent';
 import ErrorPage from './pages/Error';
@@ -21,6 +20,12 @@ import AuthenticationPage, {
 import { action as logoutAction } from './pages/Logout';
 import { checkAuthLoader, tokenLoader } from './util/auth';
 
+/*
+  1. loader在进入路由之前加载，以便在组件渲染前获取所需的数据或进行准备工作。
+  
+  2. action在路由匹配成功后，组件已准备好渲染时执行，用于执行一些额外的逻辑或行为。
+*/
+
 // 使用createBrowserRouter创建一个路由配置
 const router = createBrowserRouter([
   {
@@ -28,7 +33,7 @@ const router = createBrowserRouter([
     element: <RootLayout />, // 根路由对应的元素
     errorElement: <ErrorPage />, // 发生错误时显示的元素
     id: 'root', // 路由的唯一标识
-    loader: tokenLoader, // 在进入路由前执行的loader，用于预加载数据或执行认证等
+    loader: tokenLoader, // 在进入路由前执行的loader，用于预加载数据或执行认证等 (protected route)
     children: [ // 子路由配置
       { index: true, element: <HomePage /> }, // 首页路由配置
 
@@ -41,26 +46,26 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
-            loader: eventsLoader, // 加载事件列表的loader
+            loader: eventsLoader, // 加载事件列表的loader (protected route)
           },
 
           {
             path: ':eventId', // 事件详情页路由，:eventId为动态参数
             id: 'event-detail',
-            loader: eventDetailLoader, // 加载事件详情的loader
+            loader: eventDetailLoader, // 加载事件详情的loader (protected route)
             children: [
               {
                 index: true,
                 element: <EventDetailPage />, // 事件详情页组件
-                action: deleteEventAction, // 删除事件的action
+                action: deleteEventAction, // 删除事件的action 
               },
 
               {
                 path: 'edit', // 事件编辑页路由
                 element: <EditEventPage />,
                 action: manipulateEventAction, // 编辑事件的action
-                loader: checkAuthLoader, // 检查是否认证的loader
-              },
+                loader: checkAuthLoader, // 检查是否认证的loader (protected route)
+              }, 
               
             ],
           },
@@ -69,7 +74,7 @@ const router = createBrowserRouter([
             path: 'new', // 新增事件页路由
             element: <NewEventPage />,
             action: manipulateEventAction, // 新增事件的action
-            loader: checkAuthLoader, // 检查是否认证的loader
+            loader: checkAuthLoader, // 检查是否认证的loader (protected route)
           },
         ],
       },

@@ -19,9 +19,8 @@ export async function action({ request }) {
   const data = await request.formData();
   // 从表单数据中获取 email
   const email = data.get('email');
-
-  // 将 email 发送到后端 newsletter 服务器...
-  console.log(email);
+  // 打印 email，用于调试
+  console.log(email); 
   // 返回成功消息
   return { message: 'Signup successful!' };
 }

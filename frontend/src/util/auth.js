@@ -52,6 +52,15 @@ export function checkAuthLoader() {
     return redirect('/auth');
   }
 
+  /*
+    很重要! ！！
+
+    如果checkAuthLoader()不返还值，
+    则App.jsx中，element 对应的 <EditEventPage />, <NewEventPage /> 无法被渲染。
+
+    跳转到 errorElement 对应的 <ErrorPage />。
+  */
+
   // 如果有令牌，则返回当前页面
   return window.location.pathname;
 }

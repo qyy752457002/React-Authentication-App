@@ -13,6 +13,7 @@ export default AuthenticationPage;
 export async function action({ request }) {
   // 解析 URL 中的查询参数
   const searchParams = new URL(request.url).searchParams;
+  // 获取 URL 参数中的 'mode' 参数，如果不存在则默认为 'login'
   const mode = searchParams.get('mode') || 'login';
 
   // 检查认证模式是否为支持的模式
